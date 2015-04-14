@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<syncdata>
+  <item>LDAP://OU=PP Hub,OU=RMZ Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=CDiP,OU=RMZ Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=OGM,OU=RMZ Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=RMZ Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=OGP,OU=ZRI Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=ZRI Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=HMZ Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=SZ Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=RZ Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=TEC Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=ZGES Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=ZDS Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=OGE Hub,DC=atomsib,DC=ru</item>
+  <item>LDAP://OU=RHZ Hub,DC=atomsib,DC=ru</item>
+</syncdata>

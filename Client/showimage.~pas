@@ -1,0 +1,170 @@
+unit showimage;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, jpeg, FreeBitmap, FreeImage, StdCtrls;
+
+type
+  TImageForm = class(TForm)
+    procedure FormCreate(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure FormResize(Sender: TObject);
+  private
+    m_X, m_Y, m_Width, m_Height : integer;
+    BmpSource : TBitmap;
+    OldPos : TPoint;
+    LBtnPress : boolean;
+    LastFileName : String;
+    procedure WMEraseBkGnd(var Message: TWMEraseBkGnd); message WM_ERASEBKGND;
+
+  public
+    function LoadImage( strImage : string ) : boolean;
+    function GetLastFileName : string;
+
+  end;
+
+var
+  ImageForm: TImageForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TImageForm.WMEraseBkGnd(var Message: TWMEraseBkGnd);
+begin
+
+end;
+
+function TImageForm.LoadImage( strImage : string ) : boolean;
+var  bmp : TFreeWinBitmap;
+     PTempFilePath : PChar;
+
+begin
+
+  Caption := 'Снимок - ' + strImage;
+  LastFileName := strImage;
+  bmp := TFreeWinBitmap.Create;
+  if ( bmp.Load( strImage ) ) then
+  begin
+
+      // Сохраняем как JPEG
+      PTempFilePath:= StrAlloc(255);
+      GetTempPath(255, PTempFilePath);
+      LastFileName :=  PTempFilePath + 'tmp.jpg';
+      bmp.Save(LastFileName);
+      StrDispose(PTempFilePath);
+
+
+      BmpSource.Free;
+      BmpSource := TBitmap.Create;
+
+      BmpSource.Width := bmp.GetWidth;
+      BmpSource.Height := bmp.GetHeight;
+      BmpSource.Handle := bmp.CopyToBitmapH;
+
+
+      m_X := 0;
+      m_Y := 0;
+      m_Width := BmpSource.Width;
+      m_Height := BmpSource.Height;
+
+      Constraints.MaxWidth := m_Width;
+      Constraints.MaxHeight := m_Height;
+
+  end
+  else
+  begin
+    Application.MessageBox('Невозможно загрузить изображение', 'Ошибка');
+    Result := false;
+    exit;
+  end;
+  bmp.Free;
+
+
+  LBtnPress := false;
+  OldPos.x := 0;
+  OldPos.y := 0;
+
+  Result := true;
+end;
+
+
+function TImageForm.GetLastFileName : string;
+begin
+  Result := LastFileName;
+end;
+
+procedure TImageForm.FormCreate(Sender: TObject);
+begin
+  BmpSource := TBitmap.Create;
+  LastFileName := '';
+end;
+
+
+
+procedure TImageForm.FormPaint(Sender: TObject);
+var r,cr : TRect;
+begin
+   cr := ClientRect;
+
+   r.Left := m_X;
+   r.Top := m_Y;
+   r.Right := m_X + cr.Right;
+   r.Bottom := m_Y +  cr.Bottom;
+   Canvas.CopyRect(cr, BmpSource.Canvas, r);
+end;
+
+procedure TImageForm.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if (ssLeft in Shift)  then
+  begin
+
+
+    OldPos.x := x;
+    OldPos.y := y;
+
+    LBtnPress := True;
+   end;
+end;
+
+procedure TImageForm.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+var l,t : integer;
+    r : TRect;
+begin
+if (ssLeft in Shift) and LBtnPress then
+  begin
+      r := ClientRect;
+
+      l := x - OldPos.x;
+      t := y - OldPos.y;
+
+      OldPos.x := x;
+      OldPos.y := y;
+      
+      m_X := m_X - l;
+      m_Y := m_Y - t;
+      if (m_X < 0) then m_X := 0;
+      if (m_Y < 0) then m_Y := 0;
+      if (m_X + r.Right > m_Width) then m_X := m_Width - r.Right ;
+      if (m_Y + r.Bottom > m_Height) then m_Y := m_Height - r.Bottom;
+
+      Repaint;
+   end;
+end;
+
+procedure TImageForm.FormResize(Sender: TObject);
+begin
+   m_X := 0;
+   m_Y := 0;
+   Repaint;
+end;
+
+end.

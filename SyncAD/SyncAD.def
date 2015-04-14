@@ -1,0 +1,8 @@
+; SyncAD.def : Declares the module parameters for the DLL.
+
+LIBRARY      "SyncAD"
+
+EXPORTS
+  SetCredentials=SetCredentials
+  SyncronizeUsersAndGroups=SyncronizeUsersAndGroups
+  SyncronizeInfrastructure=SyncronizeInfrastructure  

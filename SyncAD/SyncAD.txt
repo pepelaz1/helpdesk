@@ -1,0 +1,12 @@
+LDAP://OU=CDiP,OU=RMZ Hub,DC=atomsib,DC=ru
+LDAP://OU=CDiP,OU=RMZ Hub,DC=atomsib,DC=ru
+LDAP://OU=OGM,OU=RMZ Hub,DC=atomsib,DC=ru
+LDAP://OU=RMZ Hub,DC=atomsib,DC=ru
+LDAP://OU=OGP,OU=ZRI Hub,DC=atomsib,DC=ru
+LDAP://OU=ZRI Hub,DC=atomsib,DC=ru
+LDAP://OU=HMZ Hub,DC=atomsib,DC=ru
+LDAP://OU=SZ Hub,DC=atomsib,DC=ru
+LDAP://OU=RZ Hub,DC=atomsib,DC=ru
+LDAP://OU=TEC Hub,DC=atomsib,DC=ru
+LDAP://OU=ZGES Hub,DC=atomsib,DC=ru
+LDAP://OU=ZDS Hub,DC=atomsib,DC=ru

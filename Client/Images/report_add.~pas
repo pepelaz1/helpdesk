@@ -1,0 +1,32 @@
+unit report_add;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TReportAddForm = class(TForm)
+    CloseButton: TButton;
+    OkButton: TButton;
+    procedure CloseButtonClick(Sender: TObject);
+  private
+    FReportName : String;
+  public
+     property ReportName : String read FReportName write FReportName;
+  end;
+
+var
+  ReportAddForm: TReportAddForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TReportAddForm.CloseButtonClick(Sender: TObject);
+begin
+  Close;
+end;
+
+end.
